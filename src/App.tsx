@@ -1,25 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import InterfaceCreator from "./components/InterfaceCreator";
+import Providers from "./contexts/Providers";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Providers>
+      <div className="flex justify-center items-start pt-10 w-screen h-screen bg-slate-100">
+        <InterfaceCreator />
+      </div>
+    </Providers>
   );
 }
 
