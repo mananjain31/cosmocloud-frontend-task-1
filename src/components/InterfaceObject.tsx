@@ -20,6 +20,9 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
   const updateProperty = (property: Property) => {
     const index = properties.findIndex((p) => p.id === property.id);
     const newProperties = [...properties];
+    if (property.type !== PROPERTY_TYPES.OBJECT) {
+      property.properties = [];
+    }
     newProperties[index] = property;
     setProperties(newProperties);
   };
