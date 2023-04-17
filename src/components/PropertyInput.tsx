@@ -72,10 +72,10 @@ const PropertyInput: FC<PropertyInputProps> = ({
   }, [editing]);
 
   return (
-    <div className="group flex-1 px-2 py-2 border-b flex gap-4 hover:bg-gray-200 rounded-sm">
+    <div className="group flex-1 px-2 py-2 border-b flex items-center gap-4 hover:bg-gray-200 rounded-sm">
       {editing ? (
         <input
-          className="outline-none rounded px-2 w-32"
+          className="outline-none rounded px-1 w-28"
           ref={inputRef}
           defaultValue={property.name}
           onBlur={updatePropertyName}

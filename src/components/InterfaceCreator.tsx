@@ -47,8 +47,8 @@ const InterfaceCreator: FC<InterfaceCreatorProps> = ({ fullWidth }) => {
         style={fullWidth ? { width: "100%" } : {}}
         className="w-full bg-gray-50 p-1"
       >
-        <header className="flex justify-between items-center px-8">
-          <label className="text-gray-500 font-bold text-sm">
+        <header className="flex justify-between items-center px-8 py-2">
+          <label className="text-gray-500 font-bold ">
             Field name and type
           </label>
           <IconButton icon="+" onClick={addProperty} />
