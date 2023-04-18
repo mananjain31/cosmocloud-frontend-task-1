@@ -10,6 +10,7 @@ import propertyToInterfaceString from "../utils/propertyToInterfaceString";
 import pencilIcon from "../assets/pencil.svg";
 import useToggle from "../hooks/useToggle";
 import WriteModal from "./WriteModal";
+import { defaultRootProperty } from "../constants/defaults";
 
 interface InterfaceCreatorProps {
   fullWidth?: boolean;
@@ -18,12 +19,9 @@ interface InterfaceCreatorProps {
 const InterfaceCreator: FC<InterfaceCreatorProps> = ({ fullWidth }) => {
   const getId = useContext(IDContext);
 
-  const [property, setProperty] = useState<Property>({
-    id: 0,
-    name: "root",
-    type: PROPERTY_TYPES.OBJECT,
-    properties: [],
-  });
+  const [property, setProperty] = useState<Property>(
+    defaultRootProperty as Property
+  );
   const [writeModal, toggleWriteModal] = useToggle(false);
 
   const generatedInterface = useMemo(() => {
