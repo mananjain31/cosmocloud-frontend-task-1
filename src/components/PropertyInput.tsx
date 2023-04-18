@@ -12,9 +12,6 @@ export interface Property {
   required?: boolean;
   properties: Property[];
 }
-export interface ObjectProperty extends Property {
-  properties: Property[];
-}
 
 export interface PropertyInputProps {
   propertyNames: string[];
@@ -128,7 +125,7 @@ const PropertyInput: FC<PropertyInputProps> = ({
           label="Required"
         />
         {property.type === PROPERTY_TYPES.OBJECT && (
-          <IconButton icon="+" onClick={addProperty} />
+          <IconButton icon="+" onClick={addProperty} title="Add new Field" />
         )}
         <IconButton
           icon={<img alt="trash" className="w-full h-full" src={TrashIcon} />}

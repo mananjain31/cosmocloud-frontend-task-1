@@ -1,7 +1,7 @@
 import { Property } from "../components/PropertyInput";
 import { PROPERTY_TYPES_VALUES } from "../constants/enums";
 
-export default function generateInterfaceFromPropertyState(
+export default function propertyToInterfaceString(
   propertyState: Property
 ): string {
   function recur(properties: Property[]) {
