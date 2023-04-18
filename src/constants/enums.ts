@@ -1,15 +1,15 @@
 export const PROPERTY_TYPES_VALUES = [
   "STRING",
-  "INTEGER",
+  "NUMBER",
   "BOOLEAN",
   "OBJECT",
-  "ARRAY",
+  // "ARRAY",
 ] as const;
 
 export enum PROPERTY_TYPES {
   STRING = "STRING",
-  INTEGER = "INTEGER",
+  NUMBER = "NUMBER",
   BOOLEAN = "BOOLEAN",
   OBJECT = "OBJECT",
-  ARRAY = "ARRAY",
+  // ARRAY = "ARRAY",
 }

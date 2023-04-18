@@ -43,6 +43,7 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
           id: nextId,
           name: uniiqueName,
           type: PROPERTY_TYPES.STRING,
+          required: true,
           properties: [],
         },
       ],
@@ -53,7 +54,7 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
   return (
     <>
       {properties.map((property, index) => (
-        <span className="flex">
+        <span className="flex" key={index}>
           {rootObject && (
             <span className="w-6 h-10 flex items-center justify-center text-gray-400">
               {index + 1}.

@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import { PROPERTY_TYPES, PROPERTY_TYPES_VALUES } from "../constants/enums";
 import useToggle from "../hooks/useToggle";
 import Toggle from "./Toggle";
 import { IconButton } from "./Buttons";
 import TrashIcon from "../assets/trashicon.svg";
-
+import { hasErrorContext } from "../contexts/HasErrorContext";
 export interface Property {
   id: number;
   name: string;
@@ -34,6 +34,7 @@ const PropertyInput: FC<PropertyInputProps> = ({
   const [editing, toggleEditing] = useToggle(false);
   const [error, setError] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { setHasError } = useContext(hasErrorContext);
 
   const updatePropertyName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newName = e.target.value;
@@ -85,7 +86,9 @@ const PropertyInput: FC<PropertyInputProps> = ({
     }
   }, [editing]);
 
-  console.log(error);
+  useEffect(() => {
+    setHasError(error);
+  }, [error]);
 
   return (
     <div className="group flex-1 px-2 py-2 border-b flex items-center gap-4 hover:bg-gray-200 rounded-sm">
@@ -109,7 +112,9 @@ const PropertyInput: FC<PropertyInputProps> = ({
         onChange={typeChanged}
       >
         {PROPERTY_TYPES_VALUES.map((type) => (
-          <option value={type}>{type}</option>
+          <option key={type} value={type}>
+            {type}
+          </option>
         ))}
       </select>
       {/* actions */}
