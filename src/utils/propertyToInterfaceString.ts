@@ -31,6 +31,13 @@ export default function propertyToInterfaceString(
 
   const text = "interface MyInterface\n";
   const result = recur(propertyState.properties);
-
-  return text + removeQuotesFromTypes(JSON.stringify(result, null, 2));
+  const splits = JSON.stringify(result, null, 2).split("\n");
+  const newSplits = splits.map((split) => {
+    if (split.endsWith("{")) return split;
+    if (split.endsWith(",") || split.endsWith("}"))
+      return split.endsWith(",") ? (split = split.slice(0, -1) + ";") : split;
+    else return split + ";";
+  });
+  const newResult = newSplits.join("\n");
+  return text + removeQuotesFromTypes(newResult);
 }
