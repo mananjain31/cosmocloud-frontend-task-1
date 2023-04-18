@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { PROPERTY_TYPES, PROPERTY_TYPES_VALUES } from "../constants/enums";
 import useToggle from "../hooks/useToggle";
 import Toggle from "./Toggle";
@@ -17,6 +17,7 @@ export interface ObjectProperty extends Property {
 }
 
 export interface PropertyInputProps {
+  propertyNames: string[];
   property: Property;
   update: (property: Property) => void;
   remove: (id: number) => void;
@@ -24,24 +25,37 @@ export interface PropertyInputProps {
 }
 
 const PropertyInput: FC<PropertyInputProps> = ({
+  propertyNames,
   property,
   update,
   remove,
   addProperty,
 }) => {
   const [editing, toggleEditing] = useToggle(false);
+  const [error, setError] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const updatePropertyName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    if (
+      (newName !== property.name && propertyNames.includes(newName)) ||
+      newName.trim() === ""
+    ) {
+      setError(true);
+      return;
+    }
+    setError(false);
     update({
       ...property,
-      name: e.target.value,
+      name: newName,
     });
 
     toggleEditing();
   };
+
   const checkReturnKeyToUpdate = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       updatePropertyName(e as any);
     }
   };
@@ -71,6 +85,8 @@ const PropertyInput: FC<PropertyInputProps> = ({
     }
   }, [editing]);
 
+  console.log(error);
+
   return (
     <div className="group flex-1 px-2 py-2 border-b flex items-center gap-4 hover:bg-gray-200 rounded-sm">
       {editing ? (
@@ -80,6 +96,7 @@ const PropertyInput: FC<PropertyInputProps> = ({
           defaultValue={property.name}
           onBlur={updatePropertyName}
           onKeyDown={checkReturnKeyToUpdate}
+          style={error ? { border: "1px solid red" } : {}}
         />
       ) : (
         <div className="p-0" onClick={toggleEditing}>

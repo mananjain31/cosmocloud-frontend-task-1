@@ -7,16 +7,16 @@ interface InterfaceObjectProps {
   rootObject?: boolean;
   properties: Property[];
   setProperties: (properties: Property[]) => void;
-  addProperty?: () => void;
+  // addProperty?: () => void;
 }
 
 const InterfaceObject: FC<InterfaceObjectProps> = ({
   rootObject,
   properties,
   setProperties,
-  addProperty,
+  // addProperty,
 }) => {
-  const nextId = useContext(IDContext)!();
+  const getId = useContext(IDContext);
   const updateProperty = (property: Property) => {
     const index = properties.findIndex((p) => p.id === property.id);
     const newProperties = [...properties];
@@ -31,6 +31,8 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
     setProperties(newProperties);
   };
   const addPropertyOfObject = (id: number) => {
+    const nextId = getId!();
+    const uniiqueName = `addName${nextId}`;
     const index = properties.findIndex((p) => p.id === id);
     const newProperties = [...properties];
     newProperties[index] = {
@@ -39,7 +41,7 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
         ...newProperties[index].properties,
         {
           id: nextId,
-          name: "addName",
+          name: uniiqueName,
           type: PROPERTY_TYPES.STRING,
           properties: [],
         },
@@ -60,6 +62,7 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
           {property.type === PROPERTY_TYPES.OBJECT ? (
             <div className="w-full">
               <PropertyInput
+                propertyNames={properties.map((p) => p.name)}
                 update={updateProperty}
                 property={property}
                 key={index}
@@ -80,6 +83,7 @@ const InterfaceObject: FC<InterfaceObjectProps> = ({
             </div>
           ) : (
             <PropertyInput
+              propertyNames={properties.map((p) => p.name)}
               update={updateProperty}
               property={property}
               key={index}

@@ -28,11 +28,12 @@ const InterfaceCreator: FC<InterfaceCreatorProps> = ({ fullWidth }) => {
 
   const addProperty = () => {
     const nextId = getId!();
+    const uniqueName = `addName${nextId}`;
     setProperties([
       ...property.properties,
       {
         id: nextId,
-        name: "addName",
+        name: uniqueName,
         type: PROPERTY_TYPES.STRING,
         properties: [],
       },
@@ -58,7 +59,7 @@ const InterfaceCreator: FC<InterfaceCreatorProps> = ({ fullWidth }) => {
             rootObject
             properties={property?.properties}
             setProperties={setProperties}
-            addProperty={addProperty}
+            // addProperty={addProperty}
           />
         </main>
       </form>
